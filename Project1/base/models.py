@@ -4,8 +4,8 @@ from django.db import models
 
 
 class Room(models.Model):
-    host = None
-    topic = None
+    # host = None
+    # topic = None
     name = models.CharField(max_length=200)
     description = models.TextField(null=True, blank=True)
     # participants =

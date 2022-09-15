@@ -3,7 +3,7 @@ from django.shortcuts import render
 from .models import Room
 # Create your views here.
 
-queryset = Room.objects.filter(title="Project")
+# queryset = Room.objects.filter(title="Room1")
 
 
 rooms = [
@@ -23,8 +23,10 @@ def home(req):
 
 def room(req, no):
     # return HttpResponse("Room")
-    for room in rooms:
-        if room['id'] == no:
-            context = {"room": room}
-            break
+    # for room in rooms:
+    #     if room['id'] == no:
+    #         context = {"room": room}
+    #         break
+    room = Room.objects.get(id=no)
+    context = {"room": room}
     return render(req, "base/room.html", context)
