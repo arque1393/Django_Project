@@ -5,8 +5,12 @@ from django.db import models
 
 
 class Customer(models.Model):
-    name = models.CharField(max_length=40)
+    name = models.CharField(max_length=40, unique=True)
     password = models.CharField(max_length=40)
     age = models.PositiveIntegerField()
-    gender = models.CharField(max_length=3, choice=(
+    gender = models.CharField(max_length=30, choices=(
         ('M', "Male"), ('F', "Female"), ('O', "Others`")))
+
+    @property
+    def get_number(self):
+        return 265296
