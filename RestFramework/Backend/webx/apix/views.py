@@ -32,17 +32,12 @@ def api_home(req):
 
 
 class CustomerCreateAPIView(generics.CreateAPIView):
-    queryset = Customer.objects.all()
     serializer_class = CustomerSerializer
 
     def perform_create(self, serializer):
-        title = serializer.validated_data.get('title')
-        content = serializer.validated_data.get('content') or None
-        # print(dir(title))
-        # print(dir(content))
 
-        serializer.save(content=content)
-        return Response(content)
+        serializer.save()
+        return Response(serializer.data)
 
 
 custome_create_view = CustomerCreateAPIView.as_view()

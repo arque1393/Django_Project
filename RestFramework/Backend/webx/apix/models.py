@@ -1,4 +1,4 @@
-from secrets import choice
+
 from django.db import models
 
 # Create your models here.
@@ -6,7 +6,6 @@ from django.db import models
 
 class Customer(models.Model):
     name = models.CharField(max_length=40, unique=True)
-    password = models.CharField(max_length=40)
     age = models.PositiveIntegerField()
     gender = models.CharField(max_length=30, choices=(
         ('M', "Male"), ('F', "Female"), ('O', "Others`")))
