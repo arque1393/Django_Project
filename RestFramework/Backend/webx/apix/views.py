@@ -56,6 +56,7 @@ def getUser(req):
 
 @api_view(["post"])
 def signin(req):
+    pass
 
 
 class CustomerCreateAPIView(generics.CreateAPIView):
