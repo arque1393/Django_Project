@@ -1,5 +1,4 @@
-from dataclasses import field
-from os import read
+from django.contrib.auth.models import User
 from .models import Customer
 from rest_framework import serializers
 
@@ -14,3 +13,9 @@ class CustomerSerializer(serializers.ModelSerializer):
     def get_number(self, obj):
 
         return obj.get_number
+
+
+class UserSearializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['username', 'email', 'password']

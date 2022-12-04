@@ -3,12 +3,13 @@
 # from rest_framework.permissions import IsAuthenticated
 # from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 
-
-from .serializer import Customer, CustomerSerializer
+from rest_framework.authtoken.models import Token
+from .serializer import Customer, CustomerSerializer, UserSearializer
 from rest_framework import generics
 from django.shortcuts import render
 # from django.http import JsonResponse
 # Create your views here.
+from django.contrib.auth import login
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from .models import Customer
@@ -31,11 +32,36 @@ def api_home(req):
     return Response(data)
 
 
+@api_view(["post"])
+def signup(req):
+    serializer = UserSearializer(data=req.data)
+    if serializer.is_valid(raise_exception=True):
+        user = serializer.save()
+
+        token = Token.objects.create(user=user)
+        print(token.key)
+        data = serializer.data
+        data["Authorization"] = token.key
+        return Response(data)
+
+
+@api_view(["get"])
+def getUser(req):
+    user = req.user
+    print(user)
+    # searializer = UserSearializer(user)
+    # return Response(searializer.data)
+    return Response({})
+
+
+@api_view(["post"])
+def signin(req):
+
+
 class CustomerCreateAPIView(generics.CreateAPIView):
     serializer_class = CustomerSerializer
 
     def perform_create(self, serializer):
-
         serializer.save()
         return Response(serializer.data)
 
